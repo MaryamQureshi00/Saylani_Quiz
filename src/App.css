@@ -1,0 +1,39 @@
+.compDiv{
+  width: 100%;
+  height: 5px;
+  background-color: crimson;
+}
+
+.logo{
+  height: 80px;
+  width: 100%;
+  padding: 2px;
+}
+
+.nav{
+  background-image: linear-gradient(to right, rgb(222, 217, 217), #0874B9) !important;
+  /* color: #87d717a7; */
+  color: #0874B9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.mainIcon{
+  margin-right: 6px;
+}
+
+.mainHeading {
+  width: 100%;
+  font-weight: bolder;
+  color: #333;
+  text-align: center;
+  padding-top: 15%;
+}
+
+.mainText{
+  color: #333;
+  text-align: center;
+  padding-top: 2%;
+}
