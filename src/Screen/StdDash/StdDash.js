@@ -27,56 +27,10 @@ const StdDash = () => {
     const [open, setOpen] = React.useState(false);
     const navigation = useNavigate()
 
-    const [state, setState] = React.useState({
-        right: false,
-    });
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-        setState({ ...state, [anchor]: open });
-    };
-
-    const [ValueDahboard, setValueDahboard] = React.useState([{ name: 'Dashboard', path: "/DashBoard" }, { name: 'Announcement', path: "/getAnnouncement" }, { name: 'Student Dashboard', path: "/getStdDash" }]);
-    const list = (anchor) => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-            <List>
-                {ValueDahboard.map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton onClick={() => { navigation(text.path) }}>
-                            <ListItemIcon>
-                                {index === 0 ? <DashboardIcon /> : index === 1 ? < CampaignIcon /> : < Groups2Icon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text.name} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['Progress'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <BarChartIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
 
     return (
         <div>
-        <DynamicNavBar side="Icon"/>
+        <DynamicNavBar side="Icon" StudentShow={"Student"}/>
 
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '120px', textDecoration: 'underline' }}>
                 <div>
@@ -93,7 +47,7 @@ const StdDash = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2%' }}>
-                <Card orientation="horizontal" variant="outlined" sx={{ width: 260 }}>
+                <Card orientation="horizontal" variant="outlined" sx={{ width: 260 }} onClick={()=>{navigation("/Quiz")}}>
                     <CardOverflow>
                         <AspectRatio ratio="1" sx={{ width: 90 }}>
                             <img

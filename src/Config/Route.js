@@ -5,6 +5,8 @@ import StdDash from "../Screen/StdDash/StdDash";
 import QuizApp from "../Screen/Quiz/Quiz";
 import Signup from "../Screen/SignUp";
 import Login from "../Screen/Login";
+import TeacherLogin from "../Screen/TeacherLogin";
+import StudentAnnouncement from "../Screen/AnnDisc/StudentAnnouncement";
 
 export default function AllRouters(){
 
@@ -14,11 +16,16 @@ export default function AllRouters(){
 <BrowserRouter>
 <Routes>   
     <Route path="/" element={<MainPage />} /> 
-    <Route path="/getAnnouncement" element={<Announcement />} />
-    <Route path="/getStdDash" element={<StdDash />} /> 
-    <Route path="/Quiz" element={<QuizApp />} /> 
+    <Route path="/TeacherLogin" element={<TeacherLogin />} /> 
     <Route path="/SignUp" element={<Signup />} /> 
     <Route path="/Login" element={<Login />} /> 
+    {/* /Complete */}
+    
+    <Route path="/getAnnouncement" element={<Announcement />} />
+    <Route path="/Announcement" element={<StudentAnnouncement />} />
+    
+    <Route path="/getStdDash" element={<StdDash />} /> 
+    <Route path="/Quiz" element={<QuizApp />} /> 
     
 </Routes>
 </BrowserRouter>
