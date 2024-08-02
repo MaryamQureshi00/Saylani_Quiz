@@ -7,6 +7,7 @@ import { MdOutlineWifiCalling3 } from "react-icons/md";
 // import MainPage from './MainPage';
 import axios from "axios";
 import DynamicNavBar from "../Component/DynamicNavBar";
+import { Typography } from "@mui/material";
 const Signup = () => {
     const [Name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -41,9 +42,15 @@ const SendData = {username:Name,contact_no:contact,email:email,password:password
     return (
         <>
 <div>
-<DynamicNavBar side={"no"}/>
-
-        <div className=" signup-outer">
+<DynamicNavBar side={"SignUp"} showimage={"Link"}/>
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '120px', textDecoration: 'underline' }}>
+                <div>
+                    <Typography variant="h4" component="div">
+                       Student Signup
+                    </Typography>
+                </div>
+            </div>
+        <div className=" signup-outer"  style={{marginTop:50}}>
 
          <div className='main-2'>
         <h1 style={{textAlign:"center"}}>Sign up </h1>
@@ -84,7 +91,11 @@ const SendData = {username:Name,contact_no:contact,email:email,password:password
                 {/* <Link href="/login" variant="body2">
                 {"Already have an account?Log in"}
               </Link> */}
+
+              
             </form >
+          
+            
         </div>
         </div>
 

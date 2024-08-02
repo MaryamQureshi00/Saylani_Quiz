@@ -6,7 +6,7 @@ import { MdMarkEmailRead } from "react-icons/md";
 import DynamicNavBar from "../Component/DynamicNavBar";
 import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/material';
 
- const Login = () => {
+ const TeacherLogin = () => {
     const [Name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setpassword] = useState('')
@@ -38,7 +38,7 @@ import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/mat
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '120px', textDecoration: 'underline' }}>
                 <div>
                     <Typography variant="h4" component="div">
-                       Student Log in
+                       Teacher Log in
                     </Typography>
                 </div>
             </div>
@@ -87,4 +87,4 @@ import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/mat
     )
 }
 
-export default Login
+export default TeacherLogin
