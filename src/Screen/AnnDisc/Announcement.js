@@ -112,16 +112,21 @@ export default function Announcement() {
         {getAnnouncementValue ? (
           getAnnouncementValue.map((item, index) => {
             return (
-              <div style={{ display: "flex", marginBottom: 10, marginTop: 30, backgroundColor: "lightblue" , alignContent:"center" ,alignItems:"center" }}>
-                <p style={{ textAlign: "center", width: "90%" }}>
+              <div style={{ display: "flex", marginBottom: 10, marginTop: 30, backgroundColor: "lightblue" , alignContent:"center" ,alignItems:"center", width: "100%" }}>
+                <p style={{ textAlign: "center", width: "85%" }}>
                   {item.announcement}
                 </p>
+                <Box sx={{display:"flex"}} pr={5}> 
+
+
                 <IconButton aria-label="delete" >
   <DriveFileRenameOutlineIcon   fontSize="inherit" />
 </IconButton>
                 <IconButton aria-label="delete" >
   <DeleteIcon fontSize="inherit" color="error"/>
 </IconButton>
+  
+  </Box>
               </div>
             );
           })
