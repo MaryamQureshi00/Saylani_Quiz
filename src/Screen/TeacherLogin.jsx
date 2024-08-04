@@ -16,7 +16,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 
- const Login = () => {
+ const TeacherLogin = () => {
     const [Name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setpassword] = useState('')
@@ -33,18 +33,18 @@ const navigation = useNavigate()
             const response = {  Name, email, password }
             console.log('Signed in successfully');
             console.log(response);
-            axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
-              .then(function (response) {
-                console.log(response.data);
-                localStorage.setItem('User', JSON.stringify(response.data));
-navigation("/getStdDash")
-
-              })
-              .catch(function (error) {
-                console.log(error);
+//             axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
+//               .then(function (response) {
+//                 console.log(response);
+// navigation("/getStdDash")
 
 
-              });
+//               })
+//               .catch(function (error) {
+//                 console.log(error);
+
+
+//               });
 
 
 
@@ -66,7 +66,7 @@ navigation("/getStdDash")
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '120px', textDecoration: 'underline' }}>
                 <div>
                     <Typography variant="h4" component="div">
-                       Student Log in
+                       Teacher Log in
                     </Typography>
                 </div>
             </div>
@@ -170,4 +170,4 @@ endAdornment: (
     )
 }
 
-export default Login
+export default TeacherLogin

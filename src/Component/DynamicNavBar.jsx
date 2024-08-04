@@ -20,7 +20,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 export default function DynamicNavBar(props) {
 
     const navigation = useNavigate()
@@ -36,7 +36,21 @@ export default function DynamicNavBar(props) {
         setState({ ...state, [anchor]: open });
     };
 
-    const [ValueDahboard, setValueDahboard] = React.useState([{ name: 'Dashboard', path: "/DashBoard" }, { name: 'Announcement', path: "/getAnnouncement" }, { name: 'Student Dashboard', path: "/getStdDash" }]);
+    const [ValueDahboard, setValueDahboard] = React.useState([ { name: 'Announcement', path: "/getAnnouncement" },]);
+
+    const [StudentValueDahboard, setStudentValueDahboard] = React.useState([ { name: 'Student Dashboard', path: "/getStdDash" }, { name: 'Announcement', path: "/Announcement"},{name:"Progress",path:"/progress" }]);
+
+    
+
+
+
+    const logOut = ()=>{
+        localStorage.clear();
+
+        navigation("/")
+    }
+
+
 
     const list = (anchor) => (
         <Box
@@ -46,7 +60,22 @@ export default function DynamicNavBar(props) {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {ValueDahboard.map((text, index) => (
+            
+                { props.StudentShow == "Student"?
+                
+                StudentValueDahboard.map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton onClick={() => { navigation(text.path) }}>
+                            <ListItemIcon>
+                                {index === 0 ? <Groups2Icon /> : index === 1 ? < CampaignIcon /> : < Groups2Icon />}
+                            </ListItemIcon>
+                            <ListItemText primary={text.name} />
+                        </ListItemButton>
+                    </ListItem>
+                ))
+                :
+                
+                ValueDahboard.map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => { navigation(text.path) }}>
                             <ListItemIcon>
@@ -55,15 +84,18 @@ export default function DynamicNavBar(props) {
                             <ListItemText primary={text.name} />
                         </ListItemButton>
                     </ListItem>
-                ))}
+                ))
+                }
+
+            
             </List>
             <Divider />
             <List>
-                {['Progress'].map((text, index) => (
+                {["LogOut"].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={logOut}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <BarChartIcon /> : <MailIcon />}
+                                {index % 2 === 0 ? <PowerSettingsNewIcon /> : <MailIcon />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
@@ -79,8 +111,12 @@ export default function DynamicNavBar(props) {
         <Box>
             <AppBar>
                 <Toolbar class="nav">
-                    <Typography variant="h6" component="div">
-                        <img className='logo' src={logo} alt='hosh kr khargosh' />
+                    <Typography variant="h4" component="div" height={80}>
+                     {props.showimage== "Link" ?
+<img className='logo' src={logo} alt='hosh kr khargosh' onClick={()=>navigation("/")} style={{cursor:"pointer" ,objectFit:"cover"}} />
+:
+<img className='logo' src={logo} alt='hosh kr khargosh' height={80}  style={{objectFit:"cover"}}/>
+                    }   
                     </Typography>
                     <Stack direction="row" spacing={2}>
                         <Stack direction="row" spacing={2}>
@@ -102,9 +138,17 @@ export default function DynamicNavBar(props) {
                                     ))}
                                 </div> : props.side == "Main" ? <>
 
-                                    <Button style={{ backgroundColor: 'white' }} color="inherit" onClick={() => navigation("/getAnnouncement")} ><i class=" mainIcon fa-solid fa-user-shield"></i> Teacher</Button>
-                                    <Button style={{ backgroundColor: 'white' }} color="inherit"><i className=" mainIcon fa-solid fa-user-graduate"></i>Student</Button>
-                                </>
+                                    <Button style={{ backgroundColor: 'white' }} color="inherit" onClick={() => navigation("/TeacherLogin")} ><i class=" mainIcon fa-solid fa-user-shield"></i> Teacher</Button>
+                                    <Button style={{ backgroundColor: 'white' }} color="inherit" onClick={() => navigation("/SignUp")} ><i className=" mainIcon fa-solid fa-user-graduate"></i>Student</Button>
+                                </>: props.side == "Login" ? <>
+
+<Button style={{ backgroundColor: 'white' }} color="inherit" onClick={() => navigation("/SignUp")} ><i class=" mainIcon fa-solid fa-user-shield"></i> SignUp</Button>
+
+</>: props.side == "SignUp" ? <>
+
+<Button style={{ backgroundColor: 'white' }} color="inherit" onClick={() => navigation("/Login")} ><i class=" mainIcon fa-solid fa-user-shield"></i> Login</Button>
+
+</>
                                     : <>
                                     </>
                             }
