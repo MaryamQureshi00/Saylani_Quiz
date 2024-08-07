@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import "../LoginSignup.css"
-import { FaRegUserCircle } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { MdMarkEmailRead } from "react-icons/md";
+
+
 import DynamicNavBar from "../Component/DynamicNavBar";
 import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/material';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
+import Box from '@mui/material/Box';
+
+import InputAdornment from '@mui/material/InputAdornment';
+
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import KeyIcon from '@mui/icons-material/Key';
+import EmailIcon from '@mui/icons-material/Email';
+
 
  const TeacherLogin = () => {
     const [Name, setName] = useState('')
@@ -12,14 +24,34 @@ import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/mat
     const [password, setpassword] = useState('')
     // here the function for handle form submission 
 
+const navigation = useNavigate()
+
     
     const handleSubmit = async (e) => {
         console.log(Name, email, password)
         e.preventDefault();
+
         try {
             const response = {  Name, email, password }
             console.log('Signed in successfully');
             console.log(response);
+
+//             axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
+//               .then(function (response) {
+//                 console.log(response);
+// navigation("/getStdDash")
+
+
+//               })
+//               .catch(function (error) {
+//                 console.log(error);
+
+
+//               });
+
+
+
+
         } catch (error) {
             console.log(error.response.data.error);
         }
@@ -48,35 +80,92 @@ import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/mat
          <div className="main">
             <h1 style={{textAlign:"center"}}>Login </h1>
             <form onSubmit={handleSubmit}>
-             <div className="input-group">
-             <input type="text"
-             placeholder="username"
-                    value={Name}
-                    onChange={(e) => setName(e.target.value)}
-                    required />
-             <FaRegUserCircle className="icon" />
-             </div>
-<div className="input-group">
-                <input type="password"
-                    placeholder="Enter your Password"
-                    value={password}
-                    onChange={(e) => setpassword(e.target.value)}
-                    required />
-                     <RiLockPasswordFill className="icon" />
-</div>
-<div className="input-group">
-                <input type="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required />
-                   < MdMarkEmailRead className="icon" />
-</div>
+
+             <Box className="" my={2} >
+
+
+             <TextField
+ 
+             color="primary"
+        id="input-with-icon-textfield"
+        label="Username"
+        variant="outlined"
+        // size="small"
+        required
+        sx={{width:300,}}
+        value={Name}
+        onChange={(e) => setName(e.target.value)}
+
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <AccountCircle />
+            </InputAdornment>
+          ),
+        }}
+      
+      />
+             </Box>
+
+
+
+
+        <Box className="" my={2} >
+
+
+<TextField
+
+color="primary"
+required
+id="input-with-icon-textfield"
+label="Email"
+variant="outlined"
+value={email}
+onChange={(e) => setEmail(e.target.value)}
+// size="small"
+type="email"
+sx={{width:300,}}
+InputProps={{
+endAdornment: (
+<InputAdornment position="end">
+ <EmailIcon />
+</InputAdornment>
+),
+}}
+
+/>
+</Box>
+
+
+<Box className="" my={2} >
+
+
+<TextField
+required
+color="primary"
+id="input-with-icon-textfield"
+label="Password"
+variant="outlined"
+// size="small"
+type="password"
+sx={{width:300,}}
+
+
+value={password}
+onChange={(e) => setpassword(e.target.value)}
+InputProps={{
+endAdornment: (
+<InputAdornment position="end">
+ <KeyIcon />
+</InputAdornment>
+),
+}}
+
+/>
+</Box>
       <button type="submit" 
       >Login</button>
-      {/* <Link href="/signup" >
-                {"Don't have an account? Sign Up"}
-              </Link> */}
+
         </form >
         </div>
         </div>  

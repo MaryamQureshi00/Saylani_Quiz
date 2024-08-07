@@ -1,73 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Box, Button, Checkbox, Paper, Typography , Toolbar, Stack, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, FormGroup, FormControlLabel, Snackbar, Alert, AlertTitle } from "@mui/material";
-import  {useNavigate}  from 'react-router-dom';
-import DynamicNavBar from '../../Component/DynamicNavBar';
 
+import DynamicNavBar from '../../Component/DynamicNavBar';
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const QuizData = [
-  {
-    question: "Which language runs in a web browser?",
-    options: ["Java", "C", "Python", "JavaScript"],
-    answer: 3
-  },
-  {
-    question: "What does CSS stand for?",
-    options: ["Central Style Sheets", "Cascading Style Sheets", "Cascading Simple Sheets", "Cars SUVs Sailboats"],
-    answer: 1
-  },
-  {
-    question: "Which HTML tag is used to define an unordered list?",
-    options: ["<ul>", "<ol>", "<li>", "<list>"],
-    answer: 0
-  },
-  {
-    question: "What is the purpose of Promises in JavaScript?",
-    options: ["To create new functions.", "To handle synchronous code execution.", "To handle asynchronous operations.", "None of the above"],
-    answer: 2
-  },
-  {
-    question: "How do you write an if statement in JavaScript?",
-    options: ["if i == 5 then", "if (i == 5)", "if i = 5", "if i == 5"],
-    answer: 1
-  },
-  {
-    question: "How do you add a single line comment in JavaScript?",
-    options: ["<!-- This is a comment -->", "/* This is a comment */", "// This is a comment", "** This is a comment **"],
-    answer: 2
-  },
-  {
-    question: "Which property is used to change the background color in CSS?",
-    options: ["color", "bg-color", "background-color", "bgcolor"],
-    answer: 2
-  },
-  {
-    question: "Which of the following is a correct way to declare a variable in JavaScript?",
-    options: ["var myVariable;", "let myVariable;", "const myVariable;", "All of the above"],
-    answer: 3
-  },
-  {
-    question: "What is the purpose of the alt attribute in an <img> tag?",
-    options: ["To provide alternative text for the image.", "To resize the image.", "To link the image to another page.", "To load the image to another page."],
-    answer: 0
-  },
-  {
-    question: "How do you call a function named myFunction in JavaScript?",
-    options: ["call myFunction()", "myFunction()", "call function myFunction()", "execute myFunction()"],
-    answer: 1
-  }
-];
+
 
 function QuizApp() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
+  const [QuizData, setQuizData] = useState([]);
+  
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const navigation =useNavigate()
+  const {state} = useLocation();
+  const {obj}=state
 
+  // console.log(obj)
 
   const handleOptionClick = (index) => {
     setSelectedOption(index);
@@ -75,7 +30,7 @@ function QuizApp() {
 
   const handleNextClick = () => {
     if (selectedOption !== null) {
-      if (selectedOption === QuizData[currentQuestionIndex].answer) {
+      if (selectedOption === Number(QuizData[currentQuestionIndex].answer)) {
         setScore(score + 1);
       }
       if (currentQuestionIndex < QuizData.length - 1) {
@@ -106,10 +61,37 @@ function QuizApp() {
 
 
 
-// appp bar 
+// Quiz Call
 
 
+const callQuizData=()=>{
 
+  axios.get(`https://smitbackend.vercel.app/getquiz?Card=${obj}`)  
+  .then(function (response) {
+    console.log(response.data,QuizData);
+
+    setQuizData(response.data.QuizData)
+
+  })
+  .catch(function (error) {
+    console.log(error);
+
+
+  });
+
+}
+
+useEffect(() => {
+  
+callQuizData()
+
+}, [])
+
+const gobackpage = ()=>{
+
+  // obj=""
+  navigation("/getStdDash",{ replace: true })
+}
 
 
   return (
@@ -127,7 +109,7 @@ function QuizApp() {
 <Typography variant="h5" gutterBottom color={"primary"}>{currentQuestionIndex + 1}/ {QuizData.length }</Typography>
       <Paper sx={{width:650}}  elevation={3} > 
         <Box sx={{}}  p={5}>
-          {!isQuizCompleted ? (
+          {!isQuizCompleted && QuizData.length>0 ? (
             <>
               <Box sx={{ display: "flex", alignContent: "center", alignItems: "center", alignSelf: "center", textAlign: "center" }} mb={5} pb={5}>
                 <Box sx={{ border: 1, width: 20, height: 20, textAlign: "center", alignContent: "center", alignItems: "center", alignSelf: "center", borderColor: "black", borderWidth: 1.5, borderRadius: 1 }}>
@@ -165,7 +147,7 @@ function QuizApp() {
               <Typography variant="h6" gutterBottom>
                 Your Score: {score} / {QuizData.length}
               </Typography>
-              <Button variant="contained" color="primary" onClick={() => navigation("/MainPage")}>
+              <Button variant="contained" color="primary" onClick={gobackpage}>
                 Go Back
               </Button>
             </Box>
