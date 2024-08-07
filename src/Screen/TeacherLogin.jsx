@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../LoginSignup.css"
 
+
 import DynamicNavBar from "../Component/DynamicNavBar";
 import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/material';
 import axios from "axios";
@@ -16,23 +17,25 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 
+
  const TeacherLogin = () => {
     const [Name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setpassword] = useState('')
     // here the function for handle form submission 
+
 const navigation = useNavigate()
+
     
     const handleSubmit = async (e) => {
         console.log(Name, email, password)
         e.preventDefault();
 
-   
-
         try {
             const response = {  Name, email, password }
             console.log('Signed in successfully');
             console.log(response);
+
 //             axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
 //               .then(function (response) {
 //                 console.log(response);
@@ -45,6 +48,7 @@ const navigation = useNavigate()
 
 
 //               });
+
 
 
 
@@ -76,6 +80,7 @@ const navigation = useNavigate()
          <div className="main">
             <h1 style={{textAlign:"center"}}>Login </h1>
             <form onSubmit={handleSubmit}>
+
              <Box className="" my={2} >
 
 
@@ -160,6 +165,7 @@ endAdornment: (
 </Box>
       <button type="submit" 
       >Login</button>
+
         </form >
         </div>
         </div>  

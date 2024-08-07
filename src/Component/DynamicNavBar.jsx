@@ -38,6 +38,7 @@ export default function DynamicNavBar(props) {
 
     const [ValueDahboard, setValueDahboard] = React.useState([ { name: 'Announcement', path: "/getAnnouncement" },]);
 
+
     const [StudentValueDahboard, setStudentValueDahboard] = React.useState([ { name: 'Student Dashboard', path: "/getStdDash" }, { name: 'Announcement', path: "/Announcement"},{name:"Progress",path:"/progress" }]);
 
     
@@ -49,6 +50,7 @@ export default function DynamicNavBar(props) {
 
         navigation("/")
     }
+
 
 
 
@@ -86,6 +88,7 @@ export default function DynamicNavBar(props) {
                     </ListItem>
                 ))
                 }
+
 
             
             </List>

@@ -9,6 +9,7 @@ import TeacherLogin from "../Screen/TeacherLogin";
 import StudentAnnouncement from "../Screen/AnnDisc/StudentAnnouncement";
 import ShowResult from "../Screen/ProgressPage/Progress";
 
+
 export default function AllRouters(){
 
     
@@ -24,7 +25,9 @@ export default function AllRouters(){
     
     <Route path="/getAnnouncement" element={<Announcement />} />
     <Route path="/Announcement" element={<StudentAnnouncement />} />
+
     <Route path="/progress" element={<ShowResult />} />
+
     
     <Route path="/getStdDash" element={<StdDash />} /> 
     <Route path="/Quiz" element={<QuizApp />} /> 

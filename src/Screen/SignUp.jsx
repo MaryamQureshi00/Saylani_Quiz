@@ -6,6 +6,7 @@ import axios from "axios";
 import DynamicNavBar from "../Component/DynamicNavBar";
 import { Typography } from "@mui/material";
 
+
 import Box from '@mui/material/Box';
 
 import InputAdornment from '@mui/material/InputAdornment';
@@ -15,6 +16,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from "react-router-dom";
+
 
 const Signup = () => {
     const [Name, setName] = useState('')

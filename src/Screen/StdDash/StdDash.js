@@ -35,6 +35,7 @@ const GetCardData = ()=>{
       console.log(error);
 
 
+
     });
 
 }
@@ -51,6 +52,7 @@ useEffect(() => {
     GetCardData()
  
 }, [])
+
 
 
 console.log(UserInfo)
@@ -72,7 +74,9 @@ console.log(UserInfo)
                 </Typography>
             </div>
 
+
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' , marginTop: '2%' }}>
+
 
 {cardValue.length >0?
     cardValue.map((item,index)=>{
