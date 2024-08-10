@@ -3,13 +3,36 @@ import { Box, Typography } from "@mui/material";
 
 import "../App.css"
 import DynamicNavBar from "../Component/DynamicNavBar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage(){
 
-    return(
-/// yah page aa qu raha hay esa? mujhe kya pta pr ase nh the bht acha bna howa tha bht. w8... apne folder ka path chng kia hy shyd is liye  .. dashbord vala thy na ?? hnn phir ? pta nh css dekhyn  
 
-// 1m css qu use ky app tu material use kr rahe thy na ? ab theak krta hu 
+    const navigation = useNavigate()
+
+const userinfo = ()=>{
+    const savedData = localStorage.getItem('User');
+
+console.log(JSON.parse(savedData))
+
+if(savedData){
+navigation("/getStdDash",{ replace: true })
+}
+
+}
+
+
+useEffect(() => {
+    userinfo()
+  
+ 
+}, [])
+
+
+
+    return(
+
         <div>
               <DynamicNavBar  side="Main"/>
               <div className='compDiv'>

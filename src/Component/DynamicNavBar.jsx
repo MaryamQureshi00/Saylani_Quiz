@@ -20,7 +20,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 export default function DynamicNavBar(props) {
 
     const navigation = useNavigate()
@@ -38,9 +38,21 @@ export default function DynamicNavBar(props) {
 
     const [ValueDahboard, setValueDahboard] = React.useState([ { name: 'Announcement', path: "/getAnnouncement" },]);
 
-    const [StudentValueDahboard, setStudentValueDahboard] = React.useState([ { name: 'Student Dashboard', path: "/getStdDash" }, { name: 'Announcement', path: "/Announcement" }]);
+
+    const [StudentValueDahboard, setStudentValueDahboard] = React.useState([ { name: 'Student Dashboard', path: "/getStdDash" }, { name: 'Announcement', path: "/Announcement"},{name:"Progress",path:"/progress" }]);
 
     
+
+
+
+    const logOut = ()=>{
+        localStorage.clear();
+
+        navigation("/")
+    }
+
+
+
 
     const list = (anchor) => (
         <Box
@@ -82,11 +94,11 @@ export default function DynamicNavBar(props) {
             </List>
             <Divider />
             <List>
-                {['Progress'].map((text, index) => (
+                {["LogOut"].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={logOut}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <BarChartIcon /> : <MailIcon />}
+                                {index % 2 === 0 ? <PowerSettingsNewIcon /> : <MailIcon />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
