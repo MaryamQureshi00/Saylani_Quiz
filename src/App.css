@@ -37,3 +37,20 @@
   text-align: center;
   padding-top: 2%;
 }
+
+
+image{
+  height: 80px;
+  width: 100%;
+  padding: 1px;
+}
+
+.nav{
+  background-image: linear-gradient(to right, rgb(222, 217, 217), #0874B9) !important;
+  color: #0874B9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0 28px;
+  height: 50;
+}
