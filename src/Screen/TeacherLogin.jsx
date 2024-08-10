@@ -31,30 +31,25 @@ const navigation = useNavigate()
         console.log(Name, email, password)
         e.preventDefault();
 
-        try {
             const response = {  Name, email, password }
             console.log('Signed in successfully');
             console.log(response);
+const hardcodedPassword = "123456789"
+const HardCordedEmail = "Admin@gmail.com"
 
-//             axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
-//               .then(function (response) {
-//                 console.log(response);
-// navigation("/getStdDash")
+if (password === hardcodedPassword , HardCordedEmail === email) {
 
-
-//               })
-//               .catch(function (error) {
-//                 console.log(error);
+console.log("asdasd")
+  navigation("/getAnnouncement")
 
 
-//               });
+}
 
 
 
 
-        } catch (error) {
-            console.log(error.response.data.error);
-        }
+
+     
         
 
     // Input fields clear karen

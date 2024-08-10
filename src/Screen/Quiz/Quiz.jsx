@@ -20,17 +20,18 @@ function QuizApp() {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const navigation =useNavigate()
   const {state} = useLocation();
-  const {obj}=state
+  const {obj,title,studentId}=state
 
-  // console.log(obj)
 
   const handleOptionClick = (index) => {
     setSelectedOption(index);
+    console.log(index)
   };
-
   const handleNextClick = () => {
     if (selectedOption !== null) {
-      if (selectedOption === Number(QuizData[currentQuestionIndex].answer)) {
+
+      if (selectedOption+1 === Number(QuizData[currentQuestionIndex].answer)) {
+        console.log("ASdasd")
         setScore(score + 1);
       }
       if (currentQuestionIndex < QuizData.length - 1) {
@@ -58,7 +59,7 @@ function QuizApp() {
 
 
 
-
+console.log(selectedOption)
 
 
 // Quiz Call
@@ -66,7 +67,7 @@ function QuizApp() {
 
 const callQuizData=()=>{
 
-  axios.get(`https://smitbackend.vercel.app/getquiz?Card=${obj}`)  
+  axios.get(`https://saylani-quiz-backend.vercel.app/getquiz?Card=${obj}`)  
   .then(function (response) {
     console.log(response.data,QuizData);
 
@@ -92,6 +93,42 @@ const gobackpage = ()=>{
   // obj=""
   navigation("/getStdDash",{ replace: true })
 }
+
+useEffect(() => {
+  if (isQuizCompleted) {
+    postQuizResult();
+  }
+}, [isQuizCompleted]);
+
+
+
+
+const postQuizResult = () => {
+  axios.post('https://saylani-quiz-backend.vercel.app/api/quiz/studentResult', {
+    title:title,
+    ObtainScore: score,
+    TotalScore: QuizData.length,
+    studentId : studentId, 
+  })
+  .then(function (response) {
+    console.log('Result posted successfully:', response.data);
+  })
+  .catch(function (error) {
+    console.error('Error posting result:', error);
+  });
+
+  console.log("show result")
+};
+
+
+
+
+
+
+
+
+
+
 
 
   return (

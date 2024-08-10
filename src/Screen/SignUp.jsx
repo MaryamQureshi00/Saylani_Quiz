@@ -32,7 +32,7 @@ const SendData = {username:Name,contact_no:contact,email:email,password:password
 
             console.log('Signed in successfully');
             console.log(SendData);
-            axios.post('https://smitbackend.vercel.app/signup',SendData)  
+            axios.post('https://saylani-quiz-backend.vercel.app/signup',SendData)  
             .then(function (response){ 
                 localStorage.setItem('User', JSON.stringify(response.data.user));
                 console.log(response.data.user);

@@ -35,7 +35,7 @@ const navigation = useNavigate()
             const response = {  Name, email, password }
             console.log('Signed in successfully');
             console.log(response);
-            axios.get(`https://smitbackend.vercel.app/loginUser?email=${email}`)  
+            axios.get(`https://saylani-quiz-backend.vercel.app/loginUser?email=${email}`)  
               .then(function (response) {
                 console.log(response.data);
                 localStorage.setItem('User', JSON.stringify(response.data));
