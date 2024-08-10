@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DynamicNavBar from '../../Component/DynamicNavBar';
+import axios from 'axios';
 
 export default function Announcement() {
 
@@ -20,12 +21,22 @@ export default function Announcement() {
   const [getvaueid, setgetvaueid] = useState("");
 
   const getAnnouncement = () => {
-    const announcements = [
-      { _id: 1, announcement: "Yeh hai announcement 1" },
-      { _id: 2, announcement: "Yeh hai announcement 2" },
-    ];
-    setgetAnnouncementValue(announcements);
+   
+    axios.get(`https://saylani-quiz-backend.vercel.app/api/announcement/getAnnouncement`)  
+    .then(function (response) {
+        console.log(response.data.allAnnouncements);
+        
+        setgetAnnouncementValue(response.data.allAnnouncements);
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+        
+        
+    });
+  
   };
+
 
   const [open, setOpen] = React.useState(false);
 

@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DynamicNavBar from '../../Component/DynamicNavBar';
+import axios from 'axios';
 
 export default function StudentAnnouncement() {
 
@@ -16,11 +17,20 @@ export default function StudentAnnouncement() {
   const [getAnnouncementValue, setgetAnnouncementValue] = useState([]);
  
   const getAnnouncement = () => {
-    const announcements = [
-      { _id: 1, announcement: "Yeh hai announcement 1", Date:"2/2/2024" },
-      { _id: 2, announcement: "Yeh hai announcement 2" ,Date:"3/4/2024"},
-    ];
-    setgetAnnouncementValue(announcements);
+   
+    axios.get(`https://saylani-quiz-backend.vercel.app/api/announcement/getAnnouncement`)  
+    .then(function (response) {
+        console.log(response.data.allAnnouncements);
+        
+        setgetAnnouncementValue(response.data.allAnnouncements);
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+        
+        
+    });
+  
   };
 
  
@@ -56,6 +66,7 @@ export default function StudentAnnouncement() {
       <div>
         {getAnnouncementValue ? (
           getAnnouncementValue.map((item, index) => {
+            const formattedDate = item.createdAt.split('T')[0]; 
             return (
               <div style={{ display: "flex", marginBottom: 10, marginTop: 30, backgroundColor: "lightblue" , justifyContent:"space-around" }}>
                 <p style={{ }}>
@@ -64,7 +75,7 @@ export default function StudentAnnouncement() {
                   }
                 </p>
 
-                <p>{item.Date}</p>
+                <p>{formattedDate}</p>
 
               </div>
             );

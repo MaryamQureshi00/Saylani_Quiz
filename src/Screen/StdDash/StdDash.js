@@ -24,7 +24,7 @@ const [UserInfo,setUserInfo]= useState({
 
 
 const GetCardData = ()=>{
-    axios.get(`https://smitbackend.vercel.app/getcard`)  
+    axios.get(`https://saylani-quiz-backend.vercel.app/getcard`)  
     .then(function (response) {
       console.log(response.data.QuizData);
 
@@ -80,13 +80,16 @@ console.log(UserInfo)
 
 {cardValue.length >0?
     cardValue.map((item,index)=>{
+
+console.log(item)
+
         return(
-                <Card orientation="horizontal" variant="outlined" sx={{ width: 260 }} >
+                <Card orientation="horizontal" variant="outlined" sx={{ width: 260 ,marginX:2}} >
                     <CardOverflow>
                         <AspectRatio ratio="1" sx={{ width: 90 }}>
                             <img
                                 src={item.image}
-                                srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
+                                // srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
                                 loading="lazy"
                                 alt=""
                             />
@@ -96,7 +99,7 @@ console.log(UserInfo)
                         <Typography fontWeight="md" textColor="success.plainColor">
                             {item.title}
                         </Typography>
-                        <Typography level="body-sm">Quiz 01</Typography>
+                        <Typography level="body-sm">Quiz {index +1}</Typography>
                     </CardContent>
                     <CardOverflow
                         variant="soft"
@@ -111,7 +114,8 @@ console.log(UserInfo)
                             textTransform: 'uppercase',
                             borderLeft: '1px solid',
                             borderColor: 'divider',
-                        }} onClick={()=>{navigation("/Quiz",{state:{obj:item._id}})}}>
+                            cursor:"pointer"
+                        }} onClick={()=>{navigation("/Quiz",{state:{obj:item._id,title:item.title,studentId:UserInfo._id}})}}>
                         Start
                     </CardOverflow>
                 </Card>
