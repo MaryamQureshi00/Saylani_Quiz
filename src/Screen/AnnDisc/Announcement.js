@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Stack, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material'
+import { AppBar, Toolbar, Typography, Stack, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Slide } from '@mui/material'
 import "../../App.css"
 import React, { useEffect, useState } from 'react';
 import AnnPic from '../Images/AnnPic.png';
@@ -10,6 +10,13 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import DynamicNavBar from '../../Component/DynamicNavBar';
 import axios from 'axios';
 
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 export default function Announcement() {
 
   const navigation = useNavigate()
@@ -19,6 +26,9 @@ export default function Announcement() {
   const [getValue, setgetValue] = useState("");
   const [isEdit, setisEdit] = useState(false);
   const [getvaueid, setgetvaueid] = useState("");
+
+const [buttonDis,setbuttonDis] = useState(false)
+const [deleteOpt,setDeleteOpt]= useState(false)
 
   const getAnnouncement = () => {
    
@@ -44,6 +54,18 @@ export default function Announcement() {
     setOpen(true);
   };
 
+ const  deletehandleClose =()=>{
+  setDeleteOpt(false)
+  
+ }
+
+
+ const deletehandleOpen=(id)=>{
+
+  setDeleteOpt(true)
+  setgetvaueid(id)
+
+ }
   const handleClose = () => {
     setOpen(false);
   };
@@ -52,32 +74,92 @@ export default function Announcement() {
     console.log(item);
     setgetValue(item.announcement);
     setgetvaueid(item._id);
+    setOpen(true)
     setshowcreate(true);
     setisEdit(true);
   };
 
   const createAnnouncement = () => {
+    setbuttonDis(true)
     if (isEdit) {
+      console.log('Asd')
 
-      const updatedAnnouncements = getAnnouncementValue.map((announcement) => {
-        if (announcement._id === getvaueid) {
-          announcement.announcement = getValue;
-        }
-        return announcement;
+      axios.post(`https://saylani-quiz-backend.vercel.app/api/announcement/editAnnouncement?id=${getvaueid}`,{
+        announcement:getValue
+      })  
+      .then(function (response) {
+          console.log(response.data.allAnnouncements);
+          if(response.data.message == "Announcement updated successfully"){
+            setOpen(false);
+            getAnnouncement()
+          
+            setbuttonDis(false)
+          }
+          // setgetAnnouncementValue(response.data.message);
+          
+      })
+      .catch(function (error) {
+          console.log(error);
+          setOpen(false);
+          setbuttonDis(false)
+          
       });
-      setgetAnnouncementValue(updatedAnnouncements);
+
       setshowcreate(false);
       setisEdit(false);
     } else {
-      const newAnnouncement = { _id: getAnnouncementValue.length + 1, announcement: getValue };
-      setgetAnnouncementValue([...getAnnouncementValue, newAnnouncement]);
+      // const newAnnouncement = { _id: getAnnouncementValue.length + 1, announcement: getValue };
+      // setgetAnnouncementValue([...getAnnouncementValue, newAnnouncement]);
+
+console.log(getValue)
+      axios.post(`https://saylani-quiz-backend.vercel.app/api/announcement/postAnnouncement`,{
+        announcement:getValue
+      })  
+      .then(function (response) {
+          console.log(response.data.allAnnouncements);
+          if(response.data.message == "Announcement created successfully"){
+            setOpen(false);
+            getAnnouncement()
+            setbuttonDis(false)
+          }
+          // setgetAnnouncementValue(response.data.message);
+          
+      })
+      .catch(function (error) {
+          console.log(error);
+          setOpen(false);
+          setbuttonDis(false)
+          
+      });
+
+
+
       setshowcreate(false);
     }
   };
 
-  const deleteAnnouncement = (id) => {
-    const updatedAnnouncements = getAnnouncementValue.filter((announcement) => announcement._id !== id);
-    setgetAnnouncementValue(updatedAnnouncements);
+  const deleteAnnouncement = () => {
+    setbuttonDis(true)
+    axios.delete(`https://saylani-quiz-backend.vercel.app/api/announcement/deleteAnnouncement?id=${getvaueid}`)  
+    .then(function (response) {
+        console.log(response.data.allAnnouncements);
+        if(response.data.message == "Announcement deleted successfully"){
+          getAnnouncement()
+          setDeleteOpt(false);
+          setbuttonDis(false)
+        }
+        // setgetAnnouncementValue(response.data.message);
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+        setDeleteOpt(false);
+        setbuttonDis(false)
+        
+    });
+
+
+
   };
 
   useEffect(() => {
@@ -118,9 +200,9 @@ export default function Announcement() {
 
 
                 <IconButton aria-label="delete" >
-  <DriveFileRenameOutlineIcon   fontSize="inherit" />
+  <DriveFileRenameOutlineIcon   fontSize="inherit" onClick={()=>updateAnnouncement(item)}/>
 </IconButton>
-                <IconButton aria-label="delete" >
+                <IconButton aria-label="delete" onClick={()=>deletehandleOpen(item._id)} >
   <DeleteIcon fontSize="inherit" color="error"/>
 </IconButton>
   
@@ -148,11 +230,11 @@ export default function Announcement() {
           {"Create Announcement"}
         </DialogTitle>
         <DialogContent>
-        <TextField id="standard-basic" label="Announement" variant="standard" fullWidth    onChange={(e) => setgetValue(e.target.value)} />
+        <TextField id="standard-basic" label="Announement" variant="standard" fullWidth  value={getValue}  onChange={(e) => setgetValue(e.target.value)} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cencel</Button>
-          <Button onClick={createAnnouncement} autoFocus>
+          <Button onClick={createAnnouncement} autoFocus  disabled={buttonDis}>
             Submit
           </Button>
         </DialogActions>
@@ -160,6 +242,28 @@ export default function Announcement() {
     </React.Fragment>
 </Box>
 
+
+<React.Fragment>
+   
+      <Dialog
+        open={deleteOpt}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={deletehandleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Are you sure"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+          Once it is deleted, it cannot be restored.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={deletehandleClose}>Disagree</Button>
+          <Button onClick={deleteAnnouncement}  disabled={buttonDis}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
     </div>
   );
 }

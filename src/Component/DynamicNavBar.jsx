@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Stack, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@mui/material'
+import { AppBar, Toolbar, Typography, Stack, Button, IconButton, } from '@mui/material'
 import logo from '../Screen/Images/Logo.png';
 import "../App.css"
 import React, { useEffect, useState } from 'react';
@@ -21,6 +21,9 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import GroupIcon from '@mui/icons-material/Group';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+
 export default function DynamicNavBar(props) {
 
     const navigation = useNavigate()
@@ -36,7 +39,7 @@ export default function DynamicNavBar(props) {
         setState({ ...state, [anchor]: open });
     };
 
-    const [ValueDahboard, setValueDahboard] = React.useState([ { name: 'Announcement', path: "/getAnnouncement" },]);
+    const [ValueDahboard, setValueDahboard] = React.useState([ { name: 'Announcement', path: "/getAnnouncement" },{name:"All Studend",path:"/getallstudent"},{name:"Create Quiz",path:"/CreateQuiz"},{name:"Card" , path:"/Admindash"}]);
 
 
     const [StudentValueDahboard, setStudentValueDahboard] = React.useState([ { name: 'Student Dashboard', path: "/getStdDash" }, { name: 'Announcement', path: "/Announcement"},{name:"Progress",path:"/progress" }]);
@@ -81,7 +84,7 @@ export default function DynamicNavBar(props) {
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => { navigation(text.path) }}>
                             <ListItemIcon>
-                                {index === 0 ? <DashboardIcon /> : index === 1 ? < CampaignIcon /> : < Groups2Icon />}
+                                {index === 0 ? <CampaignIcon /> : index === 1 ? < GroupIcon /> :index === 2 ? <ReceiptLongIcon/>:< DashboardIcon />}
                             </ListItemIcon>
                             <ListItemText primary={text.name} />
                         </ListItemButton>

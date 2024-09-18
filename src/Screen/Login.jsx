@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../LoginSignup.css"
 
 import DynamicNavBar from "../Component/DynamicNavBar";
-import { AppBar, Toolbar, Typography, Stack, Button, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Stack, Button, IconButton, CircularProgress } from '@mui/material';
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,8 @@ import EmailIcon from '@mui/icons-material/Email';
     const [Name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setpassword] = useState('')
+    const [loginStatus, setloginStatus] = useState(false)
+    
     // here the function for handle form submission 
 const navigation = useNavigate()
     
@@ -29,7 +31,7 @@ const navigation = useNavigate()
         console.log(Name, email, password)
         e.preventDefault();
 
-   
+        setloginStatus(true)
 
         try {
             const response = {  Name, email, password }
@@ -41,17 +43,19 @@ const navigation = useNavigate()
                 localStorage.setItem('User', JSON.stringify(response.data));
 navigation("/getStdDash")
 
+setloginStatus(false)
               })
               .catch(function (error) {
                 console.log(error);
 
-
+                setloginStatus(false)
               });
 
 
 
         } catch (error) {
             console.log(error.response.data.error);
+            setloginStatus(false)
         }
         
 
@@ -160,8 +164,8 @@ endAdornment: (
 
 />
 </Box>
-      <button type="submit" 
-      >Login</button>
+      <button type="submit"  disabled={loginStatus}
+      >{loginStatus ?<CircularProgress  size={20}/>:"Login" }</button>
         </form >
         </div>
         </div>  
