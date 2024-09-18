@@ -8,6 +8,11 @@ import Login from "../Screen/Login";
 import TeacherLogin from "../Screen/TeacherLogin";
 import StudentAnnouncement from "../Screen/AnnDisc/StudentAnnouncement";
 import ShowResult from "../Screen/ProgressPage/Progress";
+import AllStudentTable from "../AllStudent/AllStudent";
+import ShowInfo from "../AllStudent/ShowInfo";
+import RecipeReviewCard from "../Screen/CreateQuiz/CreateCard";
+import AdminDash from "../Screen/StdDash/adminDash";
+import AdminQuizCheck from "../Screen/Quiz/AdminQuizCheck";
 
 
 export default function AllRouters(){
@@ -27,10 +32,22 @@ export default function AllRouters(){
     <Route path="/Announcement" element={<StudentAnnouncement />} />
 
     <Route path="/progress" element={<ShowResult />} />
+    <Route path="/ShowInfo" element={<ShowInfo />} />
+    
+    <Route path="/getallstudent" element={<AllStudentTable />} />
 
     
     <Route path="/getStdDash" element={<StdDash />} /> 
+    <Route path="/Admindash" element={<AdminDash />} /> 
+
+
     <Route path="/Quiz" element={<QuizApp />} /> 
+
+    <Route path="/AdminCheck" element={<AdminQuizCheck />} /> 
+
+    {/* AdminQuizCheck */}
+    <Route path="/CreateQuiz" element={<RecipeReviewCard/>} /> 
+    
     
 </Routes>
 </BrowserRouter>

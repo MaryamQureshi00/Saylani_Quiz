@@ -60,7 +60,7 @@ console.log("asdasd")
     return (
       <>
    <div>
-    <DynamicNavBar side={"Login"} showimage={"Link"} />
+    <DynamicNavBar  showimage={"Link"} />
 
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '120px', textDecoration: 'underline' }}>
                 <div>

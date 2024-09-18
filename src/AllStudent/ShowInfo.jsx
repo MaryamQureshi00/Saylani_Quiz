@@ -1,17 +1,24 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import DynamicNavBar from '../../Component/DynamicNavBar';
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from '@mui/material';
+import DynamicNavBar from '../Component/DynamicNavBar';
 
 
-export default function ShowResult(){
+export default function ShowInfo(){
+
+
+    const {state} = useLocation();
+    const {StudentId,name,email}=state
+
+console.log(state)
     const [UserInfo,setUserInfo]= useState({
-        _id:"",
-        username:"",
-        contact_no:"",
-        email:"",
-        password:""
+        _id:StudentId,
+        username:name,
+        contact_no:"sd",
+        email:email	,
+        password:"1231"
     })
     
     const [overallMark, setOverallMark] = useState(""); 
@@ -20,19 +27,14 @@ export default function ShowResult(){
 
 
     const callQuizData=()=>{
-        const savedData = localStorage.getItem('User');
-const parstuser =JSON.parse(savedData)
+       
+        // setUserInfo(studentData)
 
-        console.log(JSON.parse(savedData))
-
-
-        setUserInfo(JSON.parse(savedData))
-
-        console.log(parstuser._id)
-if(parstuser){
+ 
+if(state){
 
     
-    axios.get(`https://saylani-quiz-backend.vercel.app/api/quiz/studentShowresult?studentId=${parstuser._id}`)  
+    axios.get(`https://saylani-quiz-backend.vercel.app/api/quiz/studentShowresult?studentId=${StudentId}`)  
     .then(function (response) {
         console.log([...response.data]);
         
@@ -69,6 +71,7 @@ if(parstuser){
         }  else if (!percentage ){
             setOverallMark("NO TEST IS PERFORM");
         }
+        
         else {
             setOverallMark("Bad");
         }
@@ -79,7 +82,7 @@ if(parstuser){
         <div>
 
 
-<DynamicNavBar side="Icon" StudentShow={"Student"}/>
+<DynamicNavBar side="Icon" />
 
 
 <div style={{display:"flex",justifyContent:"space-between",paddingLeft:40,paddingRight:40,paddingTop:30,backgroundColor:"#dcefed", marginTop:80}}>
@@ -109,10 +112,11 @@ if(parstuser){
 
 progress.map((item,index)=>{
 
-    let per = (item.ObtainScore / item.TotalScore)*100
+console.log(item)
 
-    console.log(per)
+let per = (item.ObtainScore / item.TotalScore)*100
 
+console.log(per)
     return(
 
   
@@ -124,7 +128,7 @@ progress.map((item,index)=>{
     <div style={{width:"100%"}}>
 <p  style={{textAlign:"end", width:"60%" ,color:"#1976d3"}}>{item.ObtainScore}/{item.TotalScore}</p>
     <div style={{width:"60%",border:'solid lightblue 1',height:10,backgroundColor:"lightblue",borderRadius:23}}>
-   <div style={{width:`${per}%`,height:10,backgroundColor:"blue"}}>
+   <div style={{width:`${per}%`,height:10,backgroundColor:"blue" ,borderEndEndRadius:23,borderStartEndRadius:29}}>
    
     </div>
    </div>
@@ -135,7 +139,7 @@ progress.map((item,index)=>{
    <div>
   <div style={{backgroundColor: (item.ObtainScore / item.TotalScore) >= 0.7 ?"green" : "red" ,width:100 ,height:40,marginRight:30,alignItems:"center",textAlign:"center" ,alignContent:"center", borderRadius:4}}>
 
-    <p style={{marginTop:8,color:"white"}}> { (item.ObtainScore / item.TotalScore) >= 0.7 ?"Pass" : "Fail"}</p>
+    <p style={{marginTop:8,color:"white"}}>{ (item.ObtainScore / item.TotalScore) >= 0.7 ?"Pass" : "Fail"}</p>
   </div>
    </div>
    <div>

@@ -75,7 +75,7 @@ console.log(UserInfo)
             </div>
 
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' , marginTop: '2%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' , marginTop: '2%' , flexWrap:"wrap" }}>
 
 
 {cardValue.length >0?
@@ -84,9 +84,9 @@ console.log(UserInfo)
 console.log(item)
 
         return(
-                <Card orientation="horizontal" variant="outlined" sx={{ width: 260 ,marginX:2}} >
+                <Card orientation="horizontal" variant="outlined" sx={{ height:118,width: 290 ,marginX:2,mb:1}} >
                     <CardOverflow>
-                        <AspectRatio ratio="1" sx={{ width: 90 }}>
+                        <AspectRatio ratio="1" sx={{ width: 150 }}>
                             <img
                                 src={item.image}
                                 // srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
@@ -96,7 +96,7 @@ console.log(item)
                         </AspectRatio>
                     </CardOverflow>
                     <CardContent>
-                        <Typography fontWeight="md" textColor="success.plainColor">
+                        <Typography fontWeight={"bold"} textColor="success.plainColor" >
                             {item.title}
                         </Typography>
                         <Typography level="body-sm">Quiz {index +1}</Typography>
